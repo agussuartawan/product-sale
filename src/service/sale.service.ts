@@ -2,13 +2,13 @@ import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Sale } from "../schema/sale.schema"
 import { Model } from "mongoose"
-import { SaleRequest } from "../dto/request/sale.request"
+import { type SaleRequest } from "../dto/request/sale.request"
 import { SaleDetailService } from "./sale-detail.service"
 
 @Injectable()
 export class SaleService {
     constructor(
-        @InjectModel(Sale.name) private saleModel: Model<Sale>,
+        @InjectModel(Sale.name) private readonly saleModel: Model<Sale>,
         private readonly saleDetailService: SaleDetailService,
     ) {}
 
@@ -19,10 +19,10 @@ export class SaleService {
     }
 
     async getAll(): Promise<Sale[]> {
-        return this.saleModel.find()
+        return await this.saleModel.find().populate("saleDetails")
     }
 
     async findById(id: string): Promise<Sale> {
-        return this.saleModel.findOne({ _id: id }).populate("saleDetails")
+        return await this.saleModel.findOne({ _id: id }).populate("saleDetails")
     }
 }

@@ -1,12 +1,18 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { HydratedDocument } from "mongoose"
+import { type HydratedDocument } from "mongoose"
 
 export type SaleDetailDocument = HydratedDocument<SaleDetail>
 
 @Schema()
 export class SaleDetail {
     @Prop()
-    xkProductId: string
+    productId: string
+
+    @Prop()
+    productName: string
+
+    @Prop()
+    productPrice: number
 
     @Prop()
     qty: number

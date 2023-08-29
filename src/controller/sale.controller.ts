@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common"
 import { SaleService } from "../service/sale.service"
 import { SaleRequest } from "../dto/request/sale.request"
-import { Sale } from "../schema/sale.schema"
+import { type Sale } from "../schema/sale.schema"
 
 @Controller("api/v1/sales")
 export class SaleController {
@@ -9,16 +9,16 @@ export class SaleController {
 
     @Post()
     async create(@Body() req: SaleRequest): Promise<Sale> {
-        return this.saleService.create(req)
+        return await this.saleService.create(req)
     }
 
     @Get()
     async getAll(): Promise<Sale[]> {
-        return this.saleService.getAll()
+        return await this.saleService.getAll()
     }
 
     @Get("/:id")
     async findOne(@Param("id") id: string): Promise<Sale> {
-        return this.saleService.findById(id)
+        return await this.saleService.findById(id)
     }
 }

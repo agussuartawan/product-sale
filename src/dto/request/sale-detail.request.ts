@@ -1,5 +1,7 @@
 export class SaleDetailRequest {
-    xkProductId: string
+    productId: string
+    productName: string
+    productPrice: number
     qty: number
     subTotal: number
     disc: number

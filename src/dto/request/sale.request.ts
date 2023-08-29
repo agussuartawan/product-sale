@@ -1,4 +1,4 @@
-import { SaleDetailRequest } from "./sale-detail.request"
+import { type SaleDetailRequest } from "./sale-detail.request"
 
 export class SaleRequest {
     date: Date
