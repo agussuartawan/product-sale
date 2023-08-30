@@ -35,5 +35,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Gitigonre
-/tsconfig.build.json
-/.dev.env
+tsconfig.build.json
+.dev.env
