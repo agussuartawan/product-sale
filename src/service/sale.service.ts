@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Sale } from "../schema/sale.schema"
 import { Model } from "mongoose"
@@ -14,15 +14,31 @@ export class SaleService {
 
     async create(req: SaleRequest): Promise<Sale> {
         req.saleDetails = await this.saleDetailService.create(req.saleDetails)
+        if (req.saleDetails.length === 0) {
+            throw new HttpException(
+                "Sale details cannot be empty",
+                HttpStatus.BAD_REQUEST,
+            )
+        }
+        const subTotals = req.saleDetails.map((val) => val.subTotal)
+        req.total = subTotals.reduce(
+            (accumulator: number, input: number): number => accumulator + input,
+        )
+
         const createdSale = new this.saleModel(req)
         return await createdSale.save()
     }
 
     async getAll(): Promise<Sale[]> {
-        return await this.saleModel.find().populate("saleDetails")
+        return this.saleModel
+            .find()
+            .populate(
+                "saleDetails",
+                "productName productPrice qty disc subTotal",
+            )
     }
 
     async findById(id: string): Promise<Sale> {
-        return await this.saleModel.findOne({ _id: id }).populate("saleDetails")
+        return this.saleModel.findOne({ _id: id }).populate("saleDetails")
     }
 }

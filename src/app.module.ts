@@ -11,8 +11,6 @@ const ENV = process.env.NODE_ENV ? process.env.NODE_ENV.trim() : "dev"
 dotenv.config({
     path: path.resolve(__dirname, `../.${ENV}.env`),
 })
-console.log(ENV)
-console.log(process.env.DB_URL)
 @Module({
     imports: [MongooseModule.forRoot(process.env.DB_URL), SaleModule],
     controllers: [AppController],

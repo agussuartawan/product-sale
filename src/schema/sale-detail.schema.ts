@@ -3,7 +3,9 @@ import { type HydratedDocument } from "mongoose"
 
 export type SaleDetailDocument = HydratedDocument<SaleDetail>
 
-@Schema()
+@Schema({
+    collection: "sale_details",
+})
 export class SaleDetail {
     @Prop()
     productId: string
