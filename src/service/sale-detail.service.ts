@@ -6,7 +6,6 @@ import { type SaleDetailRequest } from "../dto/request/sale-detail.request"
 import { HttpService } from "@nestjs/axios"
 import { ProductResponse } from "src/client/product/product.response"
 import { firstValueFrom, map } from "rxjs"
-import { AxiosResponse } from "axios"
 
 @Injectable()
 export class SaleDetailService {
